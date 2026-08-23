@@ -2,13 +2,14 @@
 
 namespace HotelsBookingSystem.Models
 {
-    public class Hotel_Service
+    public class SelectedServices
     {
-        [ForeignKey("Hotel")]
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; }
+        [ForeignKey("Cart")]
+        public int CartId { get; set; }
+        public Cart Cart { get; set; }
+
         [ForeignKey("Service")]
-        public int serviceId { get; set; }
+        public int ServiceID { get; set; }
         public Service Service { get; set; }
     }
 }

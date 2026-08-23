@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HotelsBookingSystem.Models
 {
-    public class HotelImage
+    public class RoomImage
     {
         [Key]
         public int ImageId { get; set; }
@@ -16,9 +16,10 @@ namespace HotelsBookingSystem.Models
 
         public bool IsPrimary { get; set; }
 
-        [ForeignKey("Hotel")]
-        public int HotelId { get; set; }
-        public virtual Hotel Hotel { get; set; }
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
 
+        public virtual Room Room { get; set; }
     }
+
 }
