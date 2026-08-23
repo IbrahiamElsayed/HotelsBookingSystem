@@ -41,6 +41,7 @@ namespace HotelsBookingSystem
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<IHotelService, HotelService>();
+            builder.Services.AddScoped<IAdminService, DashboardService>();
 
 
 
