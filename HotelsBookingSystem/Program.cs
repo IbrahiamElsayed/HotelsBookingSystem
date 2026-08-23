@@ -1,4 +1,8 @@
+using HotelsBookingSystem.Models;
 using HotelsBookingSystem.Models.Context;
+using HotelsBookingSystem.Repository;
+using HotelsBookingSystem.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelsBookingSystem
@@ -15,6 +19,29 @@ namespace HotelsBookingSystem
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            // Configure Identity with default token providers
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<HotelsContext>()
+                .AddDefaultTokenProviders(); // Added to resolve token provider error
+
+            // Register services    
+            builder.Services.AddScoped<IHotelRepository, HotelRepostory>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+            builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
+
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+
 
             var app = builder.Build();
 
