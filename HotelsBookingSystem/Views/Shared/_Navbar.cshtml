@@ -1,0 +1,54 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<div class="container-fluid bg-dark px-0 fixed-top">
+    <div class="row gx-0">
+        <div class="col-lg-3 bg-dark d-none d-lg-block">
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+            </a>
+
+        </div>
+        <div class="col-lg-9">
+
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                       <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">Home</a>
+                       <a asp-controller="Hotel" asp-action="Index" class="nav-item nav-link @(currentController == "Hotel" && currentAction == "Index" ? "active" : "")">Hotels</a>
+                       <a asp-controller="Room" asp-action="Index" class="nav-item nav-link  @(currentController == "Room" && currentAction == "Index" ? "active" : "")">Rooms</a>
+                        <a asp-controller="About" asp-action="Index" class="nav-item nav-link @(currentController == "About" && currentAction == "Index" ? "active" : "")">About</a>
+                       <a asp-controller="Reviews" asp-action="Index" class="nav-item nav-link @(currentController == "Reviews" && currentAction == "Index" ? "active" : "")">Contact</a>
+
+                    </div>
+                    <div class="d-inline-flex align-items-center py-2 me-3">
+                        <a href="@Url.Action("Index", "Cart")" class="nav-item nav-link">
+                            <img src="~/images/cart_icon.jpg" alt="Cart" style="width: 30px; height: 30px;">
+                            @await Component.InvokeAsync("CartSummary")
+                        </a>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Account" asp-action="Logout" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
+                            Logout <i class="bi bi-box-arrow-right"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
+                            LogIn <i class="fa fa-arrow-right ms-3"></i>
+                        </a>
+                    }
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

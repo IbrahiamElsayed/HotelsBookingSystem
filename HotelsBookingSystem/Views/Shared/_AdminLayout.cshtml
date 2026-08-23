@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Hotel Booking Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/css/AdminDashboard.css" rel="stylesheet" />
+  
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🏨</span>
+                    <span class="logo-text">HOTELIER Admin</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a asp-action="Dashboard" asp-controller="Admin" class="nav-link active">
+                    <span class="nav-link-icon">📊</span>
+                    <span class="nav-link-text">Dashboard</span>
+                </a>
+                <a asp-action="HotelsManagement" asp-controller="Hotel" class="nav-link">
+                    <span class="nav-link-icon">🏨</span>
+                    <span class="nav-link-text">Hotels</span>
+                </a>
+                <a asp-action="Index" asp-controller="Booking" class="nav-link">
+                    <span class="nav-link-icon">📅</span>
+                    <span class="nav-link-text">Bookings</span>
+                </a>
+                <a asp-action="Index" asp-controller="User" class="nav-link">
+                    <span class="nav-link-icon">👥</span>
+                    <span class="nav-link-text">Users</span>
+                </a>
+                <a asp-action="GetReviews" asp-controller="Admin" class="nav-link">
+                    <span class="nav-link-icon">⭐</span>
+                    <span class="nav-link-text">Reviews</span>
+                </a>
+                <a asp-action="Index" asp-controller="Roles" class="nav-link">
+                    <span class="nav-link-icon">🔒</span>
+                    <span class="nav-link-text">Roles</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a asp-action="Logout" asp-controller="Account" class="nav-link">
+                    <span class="nav-link-icon">🚪</span>
+                    <span class="nav-link-text">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <div class="header-right">
+                    <div class="date-display">@DateTime.Now.ToString("MMMM dd, yyyy")</div>
+                    <div class="user-menu">
+                        <div class="user-avatar">A</div>
+                        <div>Admin</div>
+                    </div>
+                </div>
+            </div>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script src="~/js/Admin.js"></script>
+</body>
+</html>
