@@ -40,6 +40,7 @@ namespace HotelsBookingSystem
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IHotelService, HotelService>();
 
 
 

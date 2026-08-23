@@ -1,0 +1,386 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<!-- Hero Section -->
+<div class="container-fluid page-header mb-5 p-0" style="height: 70vh; background-size: cover; background-position: center center; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('@Url.Content("~/images/carousel-1.jpg")'); margin: 0; padding: 0;">
+    <div class="container-fluid page-header-inner py-5" style="margin: 0; padding: 0; height: 100%;">
+        <div class="container text-center pb-5" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
+            <p class="text-white lead animated fadeInUp">Discover Our Story & Luxury Services</p>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
+                <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase">Hotelier</span></h1>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+
+                <div class="row g-3 pb-4">
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
+                                <i class=""></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@ViewBag.TotalRooms</h2>
+                                <p class="mb-0">Rooms</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@ViewBag.TotalHotels</h2>
+                                <p class="mb-0">Hotels</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@ViewBag.TotalUsers</h2>
+                                <p class="mb-0">Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2 wow fadeInUp" data-wow-delay="0.7s" href="">Explore More</a>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="row g-3">
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="~/images/about-1.jpg" style="margin-top: 25%;">
+                    </div>
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="~/images/about-2.jpg">
+                    </div>
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="~/images/about-3.jpg">
+                    </div>
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="~/images/about-4.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<!-- Amenities Section -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Services</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Amenities</span></h1>
+        </div>
+        <div class="row g-4">
+            <!-- Luxury Rooms -->
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="amenity-card rounded overflow-hidden bg-white shadow">
+                    <div class="amenity-img">
+                        <img class="img-fluid" src="https://img.freepik.com/free-photo/interior-design-neoclassical-style-with-furnishings-decor_23-2151199312.jpg?uid=R120031174&ga=GA1.1.1705403444.1739518148&semt=ais_hybrid&w=740" alt="Luxury Rooms">
+                        <div class="amenity-overlay">
+                            <h4 class="text-white mb-1">Luxury Rooms</h4>
+                            <p class="text-white mb-0">Experience ultimate comfort</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <i class="fa fa-hotel fa-3x text-primary mb-3"></i>
+                        <h5 class="mb-2">Luxury Accommodation</h5>
+                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food & Restaurant -->
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="amenity-card rounded overflow-hidden bg-white shadow">
+                    <div class="amenity-img">
+                        <img class="img-fluid" src="https://img.freepik.com/free-photo/people-ramadan-celebration_23-2151344679.jpg?uid=R120031174&ga=GA1.1.1705403444.1739518148&semt=ais_hybrid&w=740" alt="Food & Restaurant">
+                        <div class="amenity-overlay">
+                            <h4 class="text-white mb-1">Food & Restaurant</h4>
+                            <p class="text-white mb-0">Gourmet dining experience</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <i class="fa fa-utensils fa-3x text-primary mb-3"></i>
+                        <h5 class="mb-2">Fine Dining</h5>
+                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spa & Wellness -->
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="amenity-card rounded overflow-hidden bg-white shadow">
+                    <div class="amenity-img">
+                        <img class="img-fluid" src="https://img.freepik.com/premium-photo/woman-having-balinese-massage_246930-374.jpg?uid=R120031174&ga=GA1.1.1705403444.1739518148&semt=ais_hybrid&w=740" alt="Spa & Wellness">
+                        <div class="amenity-overlay">
+                            <h4 class="text-white mb-1">Spa & Wellness</h4>
+                            <p class="text-white mb-0">Relax and rejuvenate</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <i class="fa fa-spa fa-3x text-primary mb-3"></i>
+                        <h5 class="mb-2">Wellness Center</h5>
+                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swimming Pool -->
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="amenity-card rounded overflow-hidden bg-white shadow">
+                    <div class="amenity-img">
+                        <img class="img-fluid" src="https://img.freepik.com/premium-photo/sunbeds-indoor-swimming-pool-with-views-outdoor-pool_564276-5460.jpg?uid=R120031174&ga=GA1.1.1705403444.1739518148&semt=ais_hybrid&w=740" alt="Swimming Pool">
+                        <div class="amenity-overlay">
+                            <h4 class="text-white mb-1">Swimming Pool</h4>
+                            <p class="text-white mb-0">Refreshing relaxation</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <i class="fa fa-swimming-pool fa-3x text-primary mb-3"></i>
+                        <h5 class="mb-2">Pool Area</h5>
+                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .amenity-card {
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .amenity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+        }
+
+    .amenity-img {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .amenity-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+    .amenity-card:hover .amenity-img img {
+        transform: scale(1.05);
+    }
+
+    .amenity-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .amenity-card:hover .amenity-overlay {
+        opacity: 1;
+    }
+
+    .amenity-overlay h4,
+    .amenity-overlay p {
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
+
+    .amenity-card:hover .amenity-overlay h4,
+    .amenity-card:hover .amenity-overlay p {
+        transform: translateY(0);
+    }
+</style>
+
+<!-- Team Section -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Team</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Staffs</span></h1>
+        </div>  
+        <div class="row g-4">
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="@(0.1 + (i * 0.2))s">
+                    <div class="team-card rounded-4 overflow-hidden border-0 bg-white">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="@Url.Content($"~/images/team-{i+1}.jpg")" alt="Team Member">
+                            <div class="team-social position-absolute start-0 end-0 bottom-0 py-3 text-center bg-white">
+                                <a class="btn btn-icon btn-primary btn-outline-primary rounded-circle mx-1" href="#">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a class="btn btn-icon btn-primary btn-outline-primary rounded-circle mx-1" href="#">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a class="btn btn-icon btn-primary btn-outline-primary rounded-circle mx-1" href="#">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="fw-bold mb-1">ITI Developer</h5>
+                            <small class="text-muted">Designation</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Styles {
+    <style>
+        /* Hero Section */
+        .page-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Team Section */
+        .team-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+            .team-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            }
+
+        .team-img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+            .team-img img {
+                transition: all 0.5s ease;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .team-card:hover .team-img img {
+            transform: scale(1.05);
+        }
+
+        .team-social {
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .team-card:hover .team-social {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Service Section */
+        .service-item {
+            transition: all 0.3s ease;
+        }
+
+            .service-item:hover {
+                transform: translateY(-5px);
+            }
+
+        .service-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover .service-overlay {
+            opacity: 1;
+        }
+
+        /* Testimonial Section */
+        .testimonial-carousel .owl-item img {
+            width: 50px !important;
+            height: 50px !important;
+        }
+
+        .testimonial-item {
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+            .testimonial-item:hover {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+
+        $('[data-toggle="counter-up"]').counterUp({
+            delay: 10,
+            time: 1000
+        });
+
+
+        $('.testimonial-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            dots: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 2
+                },
+                992: {
+                    items: 3
+                }
+            }
+        });
+    </script>
+}
