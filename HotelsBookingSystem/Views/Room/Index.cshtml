@@ -1,0 +1,272 @@
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using HotelsBookingSystem.ViewModels
+@model IPagedList<RoomViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<div class="container my-5">
+    <form method="post" asp-action="filter" asp-controller="Room" novalidate="novalidate">
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <select name="TypeFilter" class="form-select">
+                    <option value="">-- Select Type --</option>
+                    <option value="All" selected="@(Model.FirstOrDefault()?.TypeFilter == "All")">All</option>
+
+                    @foreach (var type in Model.FirstOrDefault()?.typslist ?? new List<string>())
+                    {
+                        <option value="@type" selected="@(type == Model.FirstOrDefault()?.TypeFilter)">@type</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" name="MinPrice" class="form-control" placeholder="Min Price"
+                       value="@Model.FirstOrDefault()?.MinPrice" min="0" />
+                <span asp-validation-for="FirstOrDefault().MinPrice" class="text-danger d-block text-center"></span>
+
+                @* <span class="text-danger" data-valmsg-for="MinPrice" data-valmsg-replace="true"></span> *@
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" name="MaxPrice" class="form-control" placeholder="Max Price"
+                       value="@Model.FirstOrDefault()?.MaxPrice" min="0" />
+                <span asp-validation-for="FirstOrDefault().MaxPrice" class="text-danger  d-block text-center "></span>
+                @* <span class="text-danger" data-valmsg-for="MaxPrice" data-valmsg-replace="true"></span> *@
+            </div>
+
+             <div class="col-md-2"> 
+                 <select name="HotelId" class="form-select"> 
+                     <option value="">-- Select Hotel --</option> 
+                     <option value="0" selected="@(Model.FirstOrDefault()?.HotelId == 0)">All</option> 
+                  
+                     @foreach (var hotel in Model.FirstOrDefault()?.hotels ?? new List<Hotel>()) 
+                     { 
+                         <option value="@hotel.Id" selected="@(hotel.Id == Model.FirstOrDefault()?.HotelId)">@hotel.Name</option> 
+                     } 
+                 </select> 
+             </div> 
+
+            <div class="col-md-2">
+                <select name="City" class="form-select">
+                    <option value="">-- Select City --</option>
+                    <option value="All" selected="@(Model.FirstOrDefault()?.City == "All")">All</option>
+
+                    @foreach (var city in Model.FirstOrDefault()?.hotels.Select(h => h.City).Distinct() ?? new List<string>())
+                    {
+                        <option value="@city" selected="@(city == Model.FirstOrDefault()?.City)">@city</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+            <div class="col-md-1">
+                <a href="/Room/Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </div>
+    </form>
+    @if (!string.IsNullOrEmpty(ViewBag.Message as string))
+{
+    <div class="alert alert-warning text-center">
+        @ViewBag.Message
+            @ViewBag.FilterError
+    </div>
+}
+
+   
+   
+
+
+    <!-- Room Start -->
+
+    <link href="css/style.css" rel="stylesheet">
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
+                <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
+            </div>
+            <div class="row g-4">
+
+                @if (Model == null || !Model.Any() || Model.All(r => r.Id == 0))
+                {
+                    <div class="alert alert-warning">
+                        <strong>No rooms found matching your criteria.</strong>
+
+                    </div>
+                }
+                else
+                {
+                    @foreach (var i in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    @if (i.RoomImages != null && i.RoomImages.Any())
+                                    {
+                                        <img class="" src="@i.RoomImages.FirstOrDefault()" height="150px" width="100%" alt="">
+                                    }
+                                    else 
+                                    {
+                                        <img class="" src="default-image.jpg" height="150px" width="100%" alt="No Image Available">
+                                    }
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$@i.PricePerNight/Night</small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">@i.Type</h5>
+                                    </div>
+                                     <div class="d-flex mb-3">
+                                        <small class="border-end pe-3 me-3">
+                                            <i class="fa fa-bed text-primary me-2"></i> @i.NumberOfBeds
+                                        </small>
+
+                                        <small class="border-end pe-3 me-3">
+                                            <i class="fa fa-wifi text-primary me-2"></i> Wifi
+                                        </small>
+
+                                        <small>
+                                            <i class="fa  fa-arrow-down-9-1 text-primary me-2"></i> @i.RoomNumber
+                                        </small>
+
+                                    </div> 
+                                    <div class="d-flex mb-3">
+                                        <div><p>@i.hotel.Name </p></div>
+                                    </div>
+
+                                    <p class="text-body mb-3">@i.Description</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Room/Detail/@i.Id">View Detail</a>
+                                        @* <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">ِAdd To Cart</a> *@
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4"
+                                           href="@Url.Action("AddToCart", "Cart", new { roomId = i.Id, checkIn = DateTime.Now, checkOut = DateTime.Now.AddDays(1) })">
+                                            Add To Cart
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <div class=" my-5 w-75 m-auto " id="map" style="height: 300px;"></div>
+    @{
+        string actionName = (ViewBag.IsFiltered == true) ? "filter" : "Index";
+    }
+
+    <div class="pagination-container my-5 pb-5">
+        <ul class="pagination justify-content-center my-5">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="@actionName"
+                       asp-route-page="@(Model.PageNumber - 1)"
+                       asp-route-type="@Model.FirstOrDefault()?.TypeFilter"
+                       asp-route-minPrice="@Model.FirstOrDefault()?.MinPrice"
+                       asp-route-maxPrice="@Model.FirstOrDefault()?.MaxPrice"
+                       asp-route-hotelId="@Model.FirstOrDefault()?.HotelId"
+                       asp-route-city="@Model.FirstOrDefault()?.City">
+                        &laquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            }
+
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="@actionName"
+                       asp-route-page="@i"
+                       asp-route-type="@Model.FirstOrDefault()?.TypeFilter"
+                       asp-route-minPrice="@Model.FirstOrDefault()?.MinPrice"
+                       asp-route-maxPrice="@Model.FirstOrDefault()?.MaxPrice"
+                       asp-route-hotelId="@Model.FirstOrDefault()?.HotelId"
+                       asp-route-city="@Model.FirstOrDefault()?.City">
+                        @i
+                    </a>
+                </li>
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="@actionName"
+                       asp-route-page="@(Model.PageNumber + 1)"
+                       asp-route-type="@Model.FirstOrDefault()?.TypeFilter"
+                       asp-route-minPrice="@Model.FirstOrDefault()?.MinPrice"
+                       asp-route-maxPrice="@Model.FirstOrDefault()?.MaxPrice"
+                       asp-route-hotelId="@Model.FirstOrDefault()?.HotelId"
+                       asp-route-city="@Model.FirstOrDefault()?.City">
+                        &raquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            }
+        </ul>
+    </div>
+
+</div>
+<partial name="_ValidationScriptsPartial" />
+
+
+<script>
+   
+          var map = L.map('map', {
+        minZoom: 4,
+        maxZoom: 15
+    }).setView([30.0444, 31.2357], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: ''
+    }).addTo(map);
+ 
+    var bounds = [];
+
+    @foreach (var h in Model)
+    {
+        if (h.hotel != null &&
+            !string.IsNullOrEmpty(h.hotel.Latitude) &&
+            !string.IsNullOrEmpty(h.hotel.Longitude))
+        {
+         
+            <text>
+                        var lat = parseFloat('@h.hotel.Latitude'.replace(',', '.'));
+                        var lng = parseFloat('@h.hotel.Longitude'.replace(',', '.'));
+
+                        if (!isNaN(lat) && !isNaN(lng)) {
+                            var marker = L.marker([lat, lng]).addTo(map)
+                                .bindPopup(`@h.hotel.Name \n @h.hotel.Phone`);
+                            bounds.push([lat, lng]);
+                        }
+            </text>
+        }
+    }
+
+    // if (bounds.length > 0) {
+    //     map.fitBounds(bounds);
+    // }
+</script>

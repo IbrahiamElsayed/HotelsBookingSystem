@@ -1,0 +1,67 @@
+﻿@model Room 
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<div class="  my-5 mb-5">
+   
+
+    <div class="container pb-5">
+        <h1> Room Detail</h1>S
+        <div class="row g-5 align-items-center">
+            <!-- Hotel Information Column -->
+            <div class="col-lg-6 col-md-12">
+                <h6 class="section-title text-start text-primary text-uppercase"></h6>
+                <h1 class="mb-3"><span class="text-primary text-uppercase">@Model.Hotel.Name</span></h1>
+                <p class="mb-4">@Model.Hotel.Address</p>
+                <p class="mb-4">@Model.Description</p>
+
+                <div class="row g-3 pb-4">
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa-solid fa-sack-dollar fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@Model.PricePerNight</h2>
+                                <p class="mb-0">Price Per Night</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-bed fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@Model.NumberOfBeds</h2>
+                                <p class="mb-0">Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-arrow-down-9-1 fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">@Model.RoomNumber</h2>
+                                <p class="mb-0">Room Number</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Images Column -->
+            <div class="col-lg-6 col-md-12">
+                <div class="row g-1">
+                    @foreach (var i in Model.RoomImages)
+                    {
+                        <div class="col-6">
+                            <img class="  rounded   wow zoomIn" data-wow-delay="0.3s" height="150px" width="100%" src="@i.ImageUrl" alt="Room image">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
