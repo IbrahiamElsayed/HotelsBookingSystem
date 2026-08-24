@@ -3,11 +3,26 @@
 }
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow-lg p-5 text-center" style="max-width: 500px; border-radius: 20px;">
-        <h2 class="text-success mb-4">Payment Successful!</h2>
-        <p class="mb-3 fs-5">Thank you for your payment.</p>
-        <p class="text-muted">Your payment has been processed successfully.</p>
+    <div class="card shadow-lg border-0 p-5 text-center" style="max-width: 520px; width: 100%; border-radius: 20px;">
+        <div class="mb-4">
+            <div class="d-inline-flex justify-content-center align-items-center rounded-circle bg-success bg-opacity-10" style="width: 90px; height: 90px;">
+                <i class="fas fa-check-circle text-success" style="font-size: 50px;"></i>
+            </div>
+        </div>
 
-        <a href="/" class="btn btn-primary mt-4">Back to Home</a>
+        <h2 class="fw-bold mb-3" style="color: #0d1b2a;">Payment Successful!</h2>
+        <p class="fs-5 text-muted mb-2">Thank you for your booking.</p>
+        <p class="text-muted mb-4">Your payment has been processed successfully. A confirmation email will be sent shortly.</p>
+
+        <hr class="mb-4" />
+
+        <div class="d-flex flex-column gap-2">
+            <a href="/" class="btn btn-primary btn-lg">
+                <i class="fas fa-home me-2"></i>Back to Home
+            </a>
+            <a asp-controller="Hotel" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fas fa-hotel me-2"></i>Browse More Hotels
+            </a>
+        </div>
     </div>
 </div>

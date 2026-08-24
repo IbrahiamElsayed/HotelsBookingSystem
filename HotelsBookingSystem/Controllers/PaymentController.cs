@@ -35,18 +35,18 @@ public class PaymentController : Controller
     }
 
 
-    private BookingViewModel bookingViewModel;
+    private BookingViewModel? bookingViewModel;
 
 
 
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
         var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 
 
-        if (cart == null || !cart.CartItems.Any())
+        if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
         {
             TempData["Error"] = "Your cart is empty.";
             return RedirectToAction("Index", "Cart");
@@ -77,10 +77,10 @@ public class PaymentController : Controller
     [HttpPost]
     public async Task<IActionResult> CreatePayment(PaymentViewModel paymentViewModel)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
         var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 
-        if (cart == null || !cart.CartItems.Any())
+        if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
         {
             return RedirectToAction("Index", "Cart");
         }
@@ -244,7 +244,7 @@ public class PaymentController : Controller
         var roomsByHotel = cart.CartItems.GroupBy(item => item.Room.HotelId);
 
         List<int> bookingIds = new List<int>();
-        Payment lastPayment = null;
+        Payment? lastPayment = null;
 
         foreach (var hotelGroup in roomsByHotel)
         {

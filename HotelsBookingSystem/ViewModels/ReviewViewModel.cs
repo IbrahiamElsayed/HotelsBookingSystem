@@ -8,7 +8,7 @@ namespace HotelsBookingSystem.ViewModels
 
        [Required(ErrorMessage = "Please enter comment.")]
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         public string? HotelName { get; set; }
         public string? UserName { get; set; }
         

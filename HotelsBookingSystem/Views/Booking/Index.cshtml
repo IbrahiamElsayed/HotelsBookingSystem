@@ -19,7 +19,10 @@
     bool hasNextPage = currentPage < totalPages;
 }
 
-<link href="~/css/BookingsAd.css" rel="stylesheet" />
+@section Styles {
+    <link href="~/css/BookingsAd.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+}
 
 <div class="bookings-dashboard">
     <div class="dashboard-header mt-3">
@@ -242,21 +245,15 @@
 
 </div>
 
-
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
+@section Scripts {
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Reset button functionality
         document.querySelector('button[type="reset"]').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('filterForm').reset();
             window.location.href = '@Url.Action("Index")';
         });
 
-        // Set filter values from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
 
         if (urlParams.has('status')) {
@@ -288,3 +285,4 @@
         }
     });
 </script>
+}

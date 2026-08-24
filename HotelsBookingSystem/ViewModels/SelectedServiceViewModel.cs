@@ -7,8 +7,8 @@ namespace HotelsBookingSystem.ViewModels
         //public string ServiceName { get; set; }
         //public int Price { get; set; }
         public int ServiceId { get; set; }
-        public string ServiceName { get; set; }
+        public string? ServiceName { get; set; }
         public int ServicePrice { get; set; }
-        public Room Room { get; set; }
+        public Room? Room { get; set; }
     }
 }

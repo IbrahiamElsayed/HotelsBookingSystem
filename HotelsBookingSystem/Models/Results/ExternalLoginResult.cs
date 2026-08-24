@@ -2,9 +2,8 @@
 {
     public class ExternalLoginResult : LoginResult
     {
-        public bool Succeeded { get; set; }
-        public bool IsAdmin { get; set; }
-        public string ErrorMessage { get; set; }
+        public new bool Succeeded { get; set; }
+        public new bool IsAdmin { get; set; }
+        public new string? ErrorMessage { get; set; }
     }
-
 }
