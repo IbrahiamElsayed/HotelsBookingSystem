@@ -1,11 +1,10 @@
 ﻿namespace HotelsBookingSystem.Models.Results
 {
-    public class LoginResult
+    public class ExternalLoginResult : LoginResult
     {
         public bool Succeeded { get; set; }
-        public ApplicationUser User { get; set; }
-        public string ErrorMessage { get; set; }
-
         public bool IsAdmin { get; set; }
+        public string ErrorMessage { get; set; }
     }
+
 }
