@@ -1,4 +1,5 @@
-﻿using HotelsBookingSystem.Models.Context;
+﻿using HotelsBookingSystem.Models;
+using HotelsBookingSystem.Models.Context;
 using HotelsBookingSystem.ViewModels;
 using HotelsBookingSystem.ViewModels.AdminViewModels.HotelDetails;
 using Microsoft.AspNetCore.Authorization;
