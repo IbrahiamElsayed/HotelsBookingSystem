@@ -1,63 +1,138 @@
-﻿@model Room 
+﻿@model Room
 
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Room Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-<div class="my-5 mb-5">
+<style>
+    .room-detail-hero {
+        background: linear-gradient(135deg, #0f4c81 0%, #0a3560 100%);
+        padding: 80px 0 40px;
+        margin-top: -20px;
+    }
+    .room-info-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+    .room-stat-box {
+        background: linear-gradient(135deg, #f8f9fa, #fff);
+        border-radius: 12px;
+        padding: 25px 20px;
+        text-align: center;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    .room-stat-box:hover {
+        border-color: #0f4c81;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(15,76,129,0.1);
+    }
+    .room-stat-box i { color: #0f4c81; }
+    .room-image-grid img {
+        border-radius: 12px;
+        transition: transform 0.4s ease;
+        cursor: pointer;
+    }
+    .room-image-grid img:hover { transform: scale(1.03); }
+    .btn-book {
+        background: linear-gradient(135deg, #d4a843, #c9952e);
+        border: none;
+        border-radius: 12px;
+        padding: 14px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .btn-book:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212,168,67,0.4);
+        color: #fff;
+    }
+</style>
 
-    <div class="container pb-5">
-        <h1>Room Detail</h1>
-        <div class="row g-5 align-items-center">
-            <!-- Hotel Information Column -->
-            <div class="col-lg-6 col-md-12">
-                <h6 class="section-title text-start text-primary text-uppercase"></h6>
-                <h1 class="mb-3"><span class="text-primary text-uppercase">@Model.Hotel.Name</span></h1>
-                <p class="mb-4">@Model.Hotel.Address</p>
-                <p class="mb-4">@Model.Description</p>
+<!-- Hero Banner -->
+<div class="room-detail-hero">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-3">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white-50 text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Room" asp-action="Index" class="text-white-50 text-decoration-none">Rooms</a></li>
+                <li class="breadcrumb-item active text-white">Room #@Model.RoomNumber</li>
+            </ol>
+        </nav>
+        <h1 class="text-white fw-bold mb-2">Room Details</h1>
+        <p class="text-white-50">at <strong>@Model.Hotel.Name</strong></p>
+    </div>
+</div>
 
-                <div class="row g-3 pb-4">
-                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="border rounded p-1">
-                            <div class="border rounded text-center p-4">
-                                <i class="fa-solid fa-sack-dollar fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">@Model.PricePerNight</h2>
-                                <p class="mb-0">Price Per Night</p>
+<div class="container my-5">
+    <div class="row g-5">
+        <!-- Left Column - Images -->
+        <div class="col-lg-7">
+            <div class="room-image-grid">
+                @if (Model.RoomImages != null && Model.RoomImages.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var img in Model.RoomImages)
+                        {
+                            <div class="col-6">
+                                <img src="@img.ImageUrl" class="img-fluid w-100" style="height:220px; object-fit:cover;" alt="Room Image">
                             </div>
-                        </div>
+                        }
                     </div>
-                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
-                        <div class="border rounded p-1">
-                            <div class="border rounded text-center p-4">
-                                <i class="fa fa-bed fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">@Model.NumberOfBeds</h2>
-                                <p class="mb-0">Beds</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
-                        <div class="border rounded p-1">
-                            <div class="border rounded text-center p-4">
-                                <i class="fa fa-arrow-down-9-1 fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">@Model.RoomNumber</h2>
-                                <p class="mb-0">Room Number</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
+                else
+                {
+                    <img src="/images/default-room.jpg" class="img-fluid w-100 rounded" style="height:400px; object-fit:cover;" alt="No Image">
+                }
             </div>
+        </div>
 
-            <!-- Images Column -->
-            <div class="col-lg-6 col-md-12">
-                <div class="row g-1">
-                    @foreach (var i in Model.RoomImages)
-                    {
-                        <div class="col-6">
-                            <img class="rounded wow zoomIn" data-wow-delay="0.3s" height="150px" width="100%" src="@i.ImageUrl" alt="Room image">
-                        </div>
-                    }
+        <!-- Right Column - Info -->
+        <div class="col-lg-5">
+            <div class="room-info-card p-4">
+                <div class="mb-3">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill">Room #@Model.RoomNumber</span>
+                    <span class="badge bg-success px-3 py-2 rounded-pill ms-2">Available</span>
                 </div>
+
+                <h2 class="fw-bold mb-2" style="color:#0f4c81;">@Model.Type Room</h2>
+                <h5 class="text-muted mb-4"><i class="bi bi-building me-2"></i>@Model.Hotel.Name</h5>
+
+                <div class="border-top border-bottom py-3 mb-4">
+                    <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>@Model.Hotel.Address</p>
+                    <p class="mb-0"><i class="bi bi-text-paragraph text-primary me-2"></i>@Model.Description</p>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-4">
+                        <div class="room-stat-box">
+                            <i class="fa fa-sack-dollar fa-2x mb-2"></i>
+                            <h4 class="fw-bold mb-0" style="color:#0f4c81;">$@Model.PricePerNight</h4>
+                            <small class="text-muted">Per Night</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="room-stat-box">
+                            <i class="fa fa-bed fa-2x mb-2"></i>
+                            <h4 class="fw-bold mb-0" style="color:#0f4c81;">@Model.NumberOfBeds</h4>
+                            <small class="text-muted">Beds</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="room-stat-box">
+                            <i class="fa fa-door-open fa-2x mb-2"></i>
+                            <h4 class="fw-bold mb-0" style="color:#0f4c81;">@Model.RoomNumber</h4>
+                            <small class="text-muted">Room #</small>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="@Url.Action("AddToCart", "Cart", new { roomId = Model.Id, checkIn = DateTime.Now, checkOut = DateTime.Now.AddDays(1) })" class="btn btn-book text-white w-100">
+                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                </a>
             </div>
         </div>
     </div>

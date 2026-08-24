@@ -1,28 +1,74 @@
 ﻿@{
     ViewData["Title"] = "Payment Successful";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow-lg border-0 p-5 text-center" style="max-width: 520px; width: 100%; border-radius: 20px;">
-        <div class="mb-4">
-            <div class="d-inline-flex justify-content-center align-items-center rounded-circle bg-success bg-opacity-10" style="width: 90px; height: 90px;">
-                <i class="fas fa-check-circle text-success" style="font-size: 50px;"></i>
+<style>
+    .success-container {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+    }
+    .success-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #28a745, #20c997);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        animation: pulse 2s infinite;
+    }
+    @@keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(40,167,69,0.4); }
+        70% { box-shadow: 0 0 0 20px rgba(40,167,69,0); }
+        100% { box-shadow: 0 0 0 0 rgba(40,167,69,0); }
+    }
+    .btn-home {
+        background: linear-gradient(135deg, #0f4c81, #0a3560);
+        border: none; border-radius: 12px; padding: 12px 30px;
+        font-weight: 600; transition: all 0.3s ease;
+    }
+    .btn-home:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(15,76,129,0.4); color: #fff; }
+    .btn-browse {
+        border: 2px solid #0f4c81; border-radius: 12px; padding: 12px 30px;
+        font-weight: 600; color: #0f4c81; transition: all 0.3s ease;
+    }
+    .btn-browse:hover { background: #0f4c81; color: #fff; }
+</style>
+
+<div class="success-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="success-card p-5">
+                    <div class="success-icon mb-4">
+                        <i class="bi bi-check-lg text-white" style="font-size:50px;"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3" style="color:#0f4c81;">Payment Successful!</h2>
+                    <p class="text-muted mb-2">Thank you for your booking.</p>
+                    <p class="text-muted mb-4">Your payment has been processed successfully. A confirmation email will be sent shortly.</p>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex flex-column gap-3">
+                        <a href="/" class="btn btn-home text-white">
+                            <i class="bi bi-house me-2"></i>Back to Home
+                        </a>
+                        <a asp-controller="Hotel" asp-action="Index" class="btn btn-browse">
+                            <i class="bi bi-building me-2"></i>Browse More Hotels
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <h2 class="fw-bold mb-3" style="color: #0d1b2a;">Payment Successful!</h2>
-        <p class="fs-5 text-muted mb-2">Thank you for your booking.</p>
-        <p class="text-muted mb-4">Your payment has been processed successfully. A confirmation email will be sent shortly.</p>
-
-        <hr class="mb-4" />
-
-        <div class="d-flex flex-column gap-2">
-            <a href="/" class="btn btn-primary btn-lg">
-                <i class="fas fa-home me-2"></i>Back to Home
-            </a>
-            <a asp-controller="Hotel" asp-action="Index" class="btn btn-outline-secondary">
-                <i class="fas fa-hotel me-2"></i>Browse More Hotels
-            </a>
         </div>
     </div>
 </div>

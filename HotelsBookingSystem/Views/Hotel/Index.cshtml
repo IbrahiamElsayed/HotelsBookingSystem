@@ -1,195 +1,166 @@
 ﻿@model HotelsBookingSystem.ViewModels.AdminViewModels.HotelsManagementViewModel
 
 @{
-    ViewData["Title"] = "All Hotels";
+    ViewData["Title"] = "Our Hotels";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles {
     <style>
-        .carousel-control-prev-icon, .carousel-control-next-icon {
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            padding: 10px;
-        }
-
-        .carousel-indicators {
-            margin-bottom: 0;
-        }
-
-            .carousel-indicators [data-bs-target] {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-
-        .carousel-item img {
-            height: 200px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .hotel-carousel {
-            position: relative;
-            overflow: hidden;
-        }
-
-            .hotel-carousel .carousel-indicators {
-                bottom: 0;
-            }
-
-        .carousel-item {
-            transition: transform 0.8s ease-in-out;
-        }
-
-        .carousel-fade .carousel-item {
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-
-            .carousel-fade .carousel-item.active {
-                opacity: 1;
-            }
+        .page-header { background: linear-gradient(135deg, #0f4c81 0%, #0a3560 100%); padding: 60px 0 30px; margin-top: -20px; }
+        .filter-card { background: #fff; border-radius: 16px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-top: -30px; position: relative; z-index: 10; }
+        .filter-card .form-control, .filter-card .form-select { border: 2px solid #e9ecef; border-radius: 10px; }
+        .filter-card .form-control:focus, .filter-card .form-select:focus { border-color: #0f4c81; }
+        .hotel-card { border: none; border-radius: 16px; overflow: hidden; transition: all 0.4s ease; background: #fff; }
+        .hotel-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+        .hotel-card img { transition: transform 0.5s ease; }
+        .hotel-card:hover img { transform: scale(1.08); }
+        .star-rating { color: #d4a843; }
+        .hotel-carousel .carousel-item img { height: 220px; object-fit: cover; }
+        .hotel-carousel .carousel-indicators [data-bs-target] { width: 8px; height: 8px; border-radius: 50%; }
+        .pagination .page-item .page-link { border-radius: 8px; margin: 0 3px; color: #0f4c81; border: 2px solid #e9ecef; }
+        .pagination .page-item.active .page-link { background: #0f4c81; border-color: #0f4c81; }
     </style>
 }
 
-<div class="container my-4">
-    <div class="text-center my-5">
-        <h6 class="text-primary text-uppercase">Our Hotels</h6>
-        <h1 class="mb-3">Explore Our <span class="text-primary">Hotels</span></h1>
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white-50 text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-white">Hotels</li>
+            </ol>
+        </nav>
+        <h1 class="text-white fw-bold">Our Hotels</h1>
+        <p class="text-white-50">Discover our handpicked collection of premium hotels</p>
     </div>
+</div>
 
-    <form class="row g-3 mb-4" id="filterForm" method="get" action="@Url.Action("Index", "Hotel")">
-        <div class="col-md-5">
-            <input type="text" id="hotelSearch" name="searchTerm" class="form-control" placeholder="Search hotels..." value="@ViewBag.CurrentSearchTerm" />
-        </div>
-        <div class="col-md-4">
-            <select id="cityFilter" name="city" class="form-select">
-                <option value="">All Cities</option>
-                @foreach (var cityOption in Model.Hotels.Select(x => x.City).Distinct())
-                {
-                    if (ViewBag.CurrentCity == cityOption)
+<!-- Filter -->
+<div class="container">
+    <div class="filter-card">
+        <form class="row g-3 align-items-end" id="filterForm" method="get" action="@Url.Action("Index", "Hotel")">
+            <div class="col-md-5">
+                <label class="form-label fw-bold small text-muted">Search Hotels</label>
+                <input type="text" id="hotelSearch" name="searchTerm" class="form-control" placeholder="Search by name..." value="@ViewBag.CurrentSearchTerm" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold small text-muted">Filter by City</label>
+                <select id="cityFilter" name="city" class="form-select">
+                    <option value="">All Cities</option>
+                    @foreach (var cityOption in Model.Hotels.Select(x => x.City).Distinct())
                     {
-                        <option value="@cityOption" selected>@cityOption</option>
+                        if (ViewBag.CurrentCity == cityOption)
+                        {
+                            <option value="@cityOption" selected>@cityOption</option>
+                        }
+                        else
+                        {
+                            <option value="@cityOption">@cityOption</option>
+                        }
                     }
-                    else
-                    {
-                        <option value="@cityOption">@cityOption</option>
-                    }
-                }
-            </select>
-        </div>
-        <div class="col-md-3 d-flex gap-2">
-            <button type="submit" class="btn btn-warning w-100"><i class="fas fa-search"></i> Filter</button>
-            <a href="@Url.Action("Index", "Hotel")" class="btn btn-secondary w-100"><i class="fas fa-undo"></i> Clear</a>
-        </div>
-    </form>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4"><i class="bi bi-search me-1"></i>Search</button>
+                <a href="@Url.Action("Index", "Hotel")" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <div class="row">
-        @foreach (var hotel in Model.Hotels)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    @if (hotel.AllImages != null && hotel.AllImages.Any())
-                    {
-                        <div id="carousel-@hotel.Id" class="carousel slide carousel-fade hotel-carousel" data-bs-ride="carousel" data-bs-interval="3000" data-bs-touch="true">
-                            <div class="carousel-indicators">
-                                @for (int i = 0; i < hotel.AllImages.Count; i++)
-                                {
-                                    <button type="button" data-bs-target="#carousel-@hotel.Id" data-bs-slide-to="@i"
-                                            class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")"
-                                            aria-label="Slide @(i+1)"></button>
-                                }
+<!-- Hotel Cards -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var hotel in Model.Hotels)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="hotel-card shadow-sm h-100">
+                        @if (hotel.AllImages != null && hotel.AllImages.Any())
+                        {
+                            <div id="carousel-@hotel.Id" class="carousel slide carousel-fade hotel-carousel" data-bs-ride="carousel" data-bs-interval="3000">
+                                <div class="carousel-indicators">
+                                    @for (int i = 0; i < hotel.AllImages.Count; i++)
+                                    {
+                                        <button type="button" data-bs-target="#carousel-@hotel.Id" data-bs-slide-to="@i"
+                                                class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")"></button>
+                                    }
+                                </div>
+                                <div class="carousel-inner">
+                                    @for (int i = 0; i < hotel.AllImages.Count; i++)
+                                    {
+                                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                                            <img src="@hotel.AllImages[i]" class="d-block w-100" alt="@hotel.Name" style="height:220px; object-fit:cover;">
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            <div class="carousel-inner">
-                                @for (int i = 0; i < hotel.AllImages.Count; i++)
-                                {
-                                    <div class="carousel-item @(i == 0 ? "active" : "")">
-                                        <img src="@hotel.AllImages[i]" class="d-block w-100" alt="@hotel.Name Image @(i+1)">
-                                    </div>
-                                }
+                        }
+                        else
+                        {
+                            <img src="@hotel.ImageUrl" class="card-img-top" style="height:220px; object-fit:cover;" alt="@hotel.Name" />
+                        }
+
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="fw-bold mb-0">@hotel.Name</h5>
+                                <div class="star-rating">
+                                    @for (var i = 0; i < hotel.Rating; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                </div>
                             </div>
-                            @if (hotel.AllImages.Count > 1)
-                            {
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@hotel.Id" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@hotel.Id" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            }
+                            <p class="text-muted small mb-2"><i class="bi bi-geo-alt me-1"></i>@hotel.Location, @hotel.City</p>
+                            <p class="text-muted small mb-2"><i class="bi bi-door-open me-1"></i>@hotel.RoomCount rooms</p>
+                            <p class="text-muted small mb-3" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">@(hotel.Description)</p>
+                            <a asp-action="Index" asp-controller="Room" asp-route-hotelId="@hotel.Id" class="btn btn-primary rounded-pill w-100">
+                                <i class="bi bi-door-open me-1"></i>View Rooms
+                            </a>
                         </div>
-                    }
-                    else
-                    {
-                        <img src="@hotel.ImageUrl" class="card-img-top" alt="@hotel.Name" style="height: 200px; object-fit: cover;" />
-                    }
-
-                    <div class="card-body">
-                        <h5 class="card-title">@hotel.Name</h5>
-                        <p class="card-text text-muted"><i class="fas fa-map-marker-alt"></i> @hotel.Location, @hotel.City</p>
-                        <p class="card-text"><i class="fas fa-bed"></i> @hotel.RoomCount rooms</p>
-                        <p class="card-text">
-                            @for (var i = 0; i < hotel.Rating; i++)
-                            {
-                                <i class="fas fa-star text-warning"></i>
-                            }
-                        </p>
-                        <p class="card-text">
-                            @(hotel.Description?.Length > 100 ? hotel.Description.Substring(0, 100) + "..." : hotel.Description)
-                        </p>
-                    </div>
-                    <div class="card-footer bg-white border-0 text-center">
-                        <a asp-action="Index" asp-controller="Room" asp-route-hotelId="@hotel.Id"
-                           class="btn btn-warning w-100 text-white" style="background-color : #FEA116 ; width : 100%">
-                            View Rooms
-                        </a>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = Model.CurrentPage - 1, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                }
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = i, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">@i</a>
+                    </li>
+                }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = Model.CurrentPage + 1, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
-
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            @if (Model.CurrentPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = Model.CurrentPage - 1, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">Previous</a>
-                </li>
-            }
-
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = i, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">@i</a>
-                </li>
-            }
-
-            @if (Model.CurrentPage < Model.TotalPages)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "Hotel", new { page = Model.CurrentPage + 1, searchTerm = ViewBag.CurrentSearchTerm, city = ViewBag.CurrentCity })">Next</a>
-                </li>
-            }
-        </ul>
-    </nav>
-</div>
+</section>
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var carousels = document.querySelectorAll('.carousel');
-            carousels.forEach(function(carousel) {
-                var carouselInstance = new bootstrap.Carousel(carousel, {
-                    interval: 3000,
-                    pause: 'hover',
-                    wrap: true,
-                    keyboard: true,
-                    touch: true
-                });
+            carousels.forEach(function (carousel) {
+                new bootstrap.Carousel(carousel, { interval: 3000, pause: 'hover', wrap: true, keyboard: true, touch: true });
             });
         });
     </script>

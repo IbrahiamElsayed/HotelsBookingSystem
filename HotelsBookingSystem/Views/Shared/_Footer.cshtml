@@ -1,67 +1,63 @@
-﻿<div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
-    <div class="container pb-5">
-        <div class="row g-5">
-            <div class="col-md-6 col-lg-4">
-                <div class="bg-primary rounded p-4">
-                    <a href="index.html"><h1 class="text-white text-uppercase mb-3">Hotelier</h1></a>
-                    <p class="text-white mb-0">
-                        Book your perfect stay — anytime, anywhere!
-                        From luxury suites to cozy retreats, your next escape starts here!
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <h6 class="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Cairo, Egypt</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+01010000000</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>hotelier@gmail.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-12">
-                <div class="row gy-5 g-4">
-                    <div class="col-md-6">
-                        <h6 class="section-title text-start text-primary text-uppercase mb-4">Company</h6>
-                        <a class="btn btn-link" asp-controller="About" asp-action="Index">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Support</a>
-                    </div>
-                    @*  <div class="col-md-6">
-                        <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-                        <a class="btn btn-link" href="">Food & Restaurant</a>
-                        <a class="btn btn-link" href="">Spa & Fitness</a>
-                        <a class="btn btn-link" href="">Sports & Gaming</a>
-                        <a class="btn btn-link" href="">Event & Party</a>
-                        <a class="btn btn-link" href="">GYM & Yoga</a>
-                    </div> *@
-                </div>
-            </div>
-        </div>
-    </div>
+﻿<footer class="footer bg-dark text-light pt-5 pb-3" style="background: linear-gradient(135deg, #0a1628 0%, #0f2847 100%) !important;">
     <div class="container">
-        <div class="copyright">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">Hotelier</a>, All Right Reserved.
-
-                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                    Designed By <a class="border-bottom">ITIans</a>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="footer-menu">
-                        <a href="">Home</a>
-                        <a href="">Cookies</a>
-                        <a href="">Help</a>
-                        <a href="">FQAs</a>
+        <div class="row g-4 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="bg-primary rounded p-4">
+                    <h4 class="text-white fw-bold mb-3">
+                        <i class="bi bi-building me-2"></i>Hotelier
+                    </h4>
+                    <p class="text-white-50 mb-0">
+                        Book your perfect stay — anytime, anywhere!
+                        From luxury suites to cozy retreats, your next escape starts here.
+                    </p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm btn-social"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm btn-social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm btn-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm btn-social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-2 col-md-6">
+                <h6 class="section-title text-uppercase mb-4" style="color: #d4a843;">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a asp-controller="Home" asp-action="Index" class="text-white-50 text-decoration-none"><i class="bi bi-chevron-right me-2"></i>Home</a></li>
+                    <li class="mb-2"><a asp-controller="Hotel" asp-action="Index" class="text-white-50 text-decoration-none"><i class="bi bi-chevron-right me-2"></i>Hotels</a></li>
+                    <li class="mb-2"><a asp-controller="Room" asp-action="Index" class="text-white-50 text-decoration-none"><i class="bi bi-chevron-right me-2"></i>Rooms</a></li>
+                    <li class="mb-2"><a asp-controller="About" asp-action="Index" class="text-white-50 text-decoration-none"><i class="bi bi-chevron-right me-2"></i>About</a></li>
+                    <li class="mb-2"><a asp-controller="Reviews" asp-action="Index" class="text-white-50 text-decoration-none"><i class="bi bi-chevron-right me-2"></i>Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="section-title text-uppercase mb-4" style="color: #d4a843;">Contact Info</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-3 text-white-50"><i class="fa fa-map-marker-alt me-3 text-primary"></i>123 Street, Cairo, Egypt</li>
+                    <li class="mb-3 text-white-50"><i class="fa fa-phone-alt me-3 text-primary"></i>+010 100 00000</li>
+                    <li class="mb-3 text-white-50"><i class="fa fa-envelope me-3 text-primary"></i>hotelier@gmail.com</li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="section-title text-uppercase mb-4" style="color: #d4a843;">Newsletter</h6>
+                <p class="text-white-50 small">Subscribe to get updates on exclusive offers and deals.</p>
+                <div class="input-group">
+                    <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="Your email">
+                    <button class="btn btn-primary"><i class="bi bi-send"></i></button>
+                </div>
+            </div>
+        </div>
+        <hr class="border-secondary">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0 text-white-50 small">
+                    &copy; <span class="text-primary">Hotelier</span>. All Rights Reserved.
+                    Designed by <span class="text-primary">ITIans</span>
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="text-white-50 text-decoration-none small me-3">Privacy</a>
+                <a href="#" class="text-white-50 text-decoration-none small me-3">Terms</a>
+                <a href="#" class="text-white-50 text-decoration-none small">FAQ</a>
+            </div>
         </div>
     </div>
-</div>
+</footer>

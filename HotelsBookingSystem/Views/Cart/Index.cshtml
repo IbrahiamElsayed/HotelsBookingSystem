@@ -15,116 +15,25 @@
 @section Styles {
 
 <style>
-    :root {
-    --primary: #007bff;
-    --light: #f8f9fa;
-    }
-
-    body {
-    background-color: #f5f7fa;
-    }
-    .cart-btn {
-    background-color: var(--primary);
-    color: #fff;
-    border-radius: 8px;
-    padding: 12px 25px;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-    }
-
-    .cart-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    }
-
-    .card {
-    border-radius: 12px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    border: none;
-    }
-
-    .card-header {
-    background-color: var(--primary);
-    color: white;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    }
-
+    .page-header { background: linear-gradient(135deg, #0f4c81 0%, #0a3560 100%); padding: 60px 0 30px; margin-top: -20px; }
+    .cart-card { border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+    .cart-card .card-header { background: linear-gradient(135deg, #0f4c81, #0a3560); color: #fff; border: none; padding: 20px 25px; }
     .cart-item {
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    transition: 0.3s;
+        background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 15px;
+        border: 1px solid #e9ecef; transition: all 0.3s ease;
     }
-
-    .cart-item:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    .cart-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .cart-item img { border-radius: 10px; transition: transform 0.3s ease; }
+    .cart-item:hover img { transform: scale(1.05); }
+    .summary-card { border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+    .summary-card .card-header { background: linear-gradient(135deg, #d4a843, #c9952e); color: #fff; border: none; padding: 20px 25px; }
+    .btn-checkout {
+        background: linear-gradient(135deg, #0f4c81, #0a3560); border: none;
+        border-radius: 12px; padding: 14px; font-weight: 600; transition: all 0.3s ease;
     }
-
-    .bg-image img {
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
-    }
-
-    .bg-image:hover img {
-    transform: scale(1.05);
-    opacity: 0.9;
-    }
-
-    .form-control {
-    border-radius: 8px;
-    }
-
-    input[type="date"] {
-    background-color: var(--light);
-    border: 1px solid #ced4da;
-    padding: 10px;
-    font-size: 1rem;
-    }
-
-    input[type="date"]:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-    }
-
-    .price-per-night {
-    font-size: 1.05rem;
-    font-weight: 500;
-    }
-
-    .list-group-item {
-    font-size: 1rem;
-    font-weight: 500;
-    }
-
-    .form-check-label {
-    font-size: 0.95rem;
-    font-weight: 500;
-    }
-
-    .btn-danger {
-    border-radius: 6px;
-    padding: 6px 12px;
-    }
-
-    .alert-info {
-    font-size: 1.1rem;
-    padding: 15px;
-    border-radius: 10px;
-    }
-
-    .card-body img {
-    margin-right: 8px;
-    }
-
-    h5, h6 {
-    font-weight: 600;
-    }
+    .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(15,76,129,0.4); color: #fff; }
+    .form-control, .form-select { border: 2px solid #e9ecef; border-radius: 10px; }
+    .form-control:focus, .form-select:focus { border-color: #0f4c81; }
 </style>
 
 }
@@ -262,7 +171,9 @@
                                 <input type="hidden" name="CheckOut" id="formCheckOutDate" />
                                 <input type="hidden" name="TotalAmount" id="totalAmountInput" />
                                 <input type="hidden" name="SelectedServiceIds" id="selectedServicesInput" />
-                                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Confirm Booking</button>
+                                <button type="submit" class="btn btn-checkout text-white btn-lg w-100 mt-3">
+                    <i class="bi bi-cart-check me-2"></i>Confirm Booking
+                </button>
                             </form>
                         </div>
                     </div>

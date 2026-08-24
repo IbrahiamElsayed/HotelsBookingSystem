@@ -32,13 +32,17 @@ namespace HotelsBookingSystem
                 options.SlidingExpiration = true;
             });
 
-            builder.Services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "";
-                    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
-                    options.SaveTokens = true;
-                });
+            var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
+            if (!string.IsNullOrEmpty(googleClientId))
+            {
+                builder.Services.AddAuthentication()
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = googleClientId;
+                        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
+                        options.SaveTokens = true;
+                    });
+            }
 
             builder.Services.AddSession(options =>
             {
