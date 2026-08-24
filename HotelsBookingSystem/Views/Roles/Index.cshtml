@@ -1,0 +1,273 @@
+﻿@{
+    ViewBag.Title = "Roles Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<!-- External Styles -->
+<link href="~/css/BookingsAd.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" />
+
+<style>
+    body {
+        background-color: #e4e7f0;
+        font-family: Arial, sans-serif;
+    }
+
+    .bookings-dashboard {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .btn {
+        padding: 8px 14px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .btn-success {
+        background-color: green;
+        color: white;
+    }
+
+    .btn-warning {
+        background-color: #fff2cc;
+        color: #856404;
+    }
+
+    .btn-danger {
+        background-color: #ffcccb;
+        color: maroon;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .table-responsive {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    th {
+        background-color: #f8f9fa;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+        .modal.show {
+            display: flex;
+        }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        min-width: 300px;
+        max-width: 500px;
+    }
+
+    .modal-header, .modal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-body {
+        margin: 15px 0;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="bookings-dashboard container-fluid py-4">
+
+    <!-- Page Header -->
+    <div class="dashboard-header">
+        <h1><i class="fas fa-user-shield"></i> Roles Management</h1>
+        <button class="btn btn-success" onclick="openModal('addRoleModal')">
+            <i class="fas fa-plus"></i> Add Role
+        </button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td><i class="fas fa-user-tag"></i> @role.Name</td>
+                        <td class="text-end">
+                            <button class="btn btn-warning btn-sm edit-role-btn"
+                                    data-id="@role.Id"
+                                    data-name="@role.Name"
+                                    onclick="editRole(this)">
+                                <i class="fas fa-edit" aria-hidden="true"></i> Edit
+                            </button>
+
+                            <button class="btn btn-danger btn-sm delete-role-btn"
+                                    data-id="@role.Id"
+                                    data-name="@role.Name"
+                                    onclick="deleteRole(this)">
+                                <i class="fas fa-trash" aria-hidden="true"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Modals -->
+<div class="modal" id="addRoleModal">
+    <div class="modal-content">
+        <form method="post" action="@Url.Action("New")">
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <h5>Add New Role</h5>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('addRoleModal')">X</button>
+            </div>
+            <div class="modal-body">
+                <label>Role Name</label>
+                <input type="text" name="roleName" class="form-control" required />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('addRoleModal')">Cancel</button>
+                <button type="submit" class="btn btn-success">Add Role</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="editRoleModal">
+    <div class="modal-content">
+        <form method="post" action="@Url.Action("Edit")">
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <h5>Edit Role</h5>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editRoleModal')">X</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="Id" id="editRoleId" />
+                <label>Role Name</label>
+                <input type="text" name="roleName" id="editRoleName" class="form-control" required />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editRoleModal')">Cancel</button>
+                <button type="submit" class="btn btn-warning">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="deleteRoleModal">
+    <div class="modal-content">
+        <form method="post" action="@Url.Action("Delete")">
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <h5>Delete Role</h5>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('deleteRoleModal')">X</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="Id" id="deleteRoleId" />
+                <p>Are you sure you want to delete role: <strong id="deleteRoleName"></strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('deleteRoleModal')">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<<script>
+     function openModal(id) {
+         document.getElementById(id).classList.add('show');
+         document.body.style.overflow = 'hidden'; 
+     }
+
+     function closeModal(id) {
+         document.getElementById(id).classList.remove('show');
+         document.body.style.overflow = 'auto';
+     }
+
+     function editRole(button) {
+         const roleId = button.getAttribute('data-id');
+         const roleName = button.getAttribute('data-name');
+
+         document.getElementById('editRoleId').value = roleId;
+         document.getElementById('editRoleName').value = roleName;
+
+         openModal('editRoleModal');
+     }
+
+     function deleteRole(button) {
+         const roleId = button.getAttribute('data-id');
+         const roleName = button.getAttribute('data-name');
+
+         document.getElementById('deleteRoleId').value = roleId;
+         document.getElementById('deleteRoleName').textContent = roleName;
+
+         openModal('deleteRoleModal');
+     }
+</script>
